@@ -1,9 +1,11 @@
 const express = require('express');
-const app = express();
-const port = 3000;
+const path = require('path');
 
-app.use(express.static('public'));
+const app = express(),
+  DIST_DIR = './dist',
+  HTML_FILE = path.join(DIST_DIR, 'index.html');
+app.use(express.static(DIST_DIR));
 
-app.get('/', (req, res) => res.sendFile('./public/index.html'));
+app.get('/', (req, res) => res.sendFile(HTML_FILE));
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(3000, () => console.log(`Example app listening on port 3000!`));
