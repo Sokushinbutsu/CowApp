@@ -1,0 +1,7 @@
+USE `cows`;
+CREATE TABLE IF NOT EXISTS `cows` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `description` VARCHAR(200) NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
