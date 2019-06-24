@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const db = require('./db');
 const bodyParser = require('body-parser');
+const Cow = require('./src/models/Cow.js');
 
 const app = express(),
   DIST_DIR = './dist',
@@ -15,31 +16,25 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => res.sendFile(HTML_FILE));
 
 app.get('/api/cows', (req, res) => {
-  db.connection.query('SELECT name, description FROM cows;', function(
-    error,
-    results
-  ) {
-    if (error) {
-      res.send(error);
+  Cow.getAllCows((err, results) => {
+    if (err) {
+      res.status(500).send();
+    } else {
+      res.send(results);
     }
-    res.send(results);
   });
 });
 
 app.post('/api/cows', (req, res) => {
-  const description = req.body.description;
-  const name = req.body.name;
-  console.log(req.body);
+  const { name, description } = req.body;
 
-  db.connection.query(
-    `INSERT INTO cows (name, description) VALUES ("${name}", "${description}");`,
-    (error, results) => {
-      if (error) {
-        res.send(error);
-      }
+  Cow.addCow(name, description, err => {
+    if (err) {
+      res.status(500).send();
+    } else {
       res.status(201).send();
     }
-  );
+  });
 });
 
 app.listen(3000, () => console.log(`Cow app listening on port 3000!`));

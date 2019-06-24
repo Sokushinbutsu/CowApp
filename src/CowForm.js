@@ -19,9 +19,9 @@ class CowForm extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     console.log('A name was submitted: ' + this.state.name);
     console.log('a description was submited: ', this.state.description);
-    event.preventDefault();
   }
 
   render() {
