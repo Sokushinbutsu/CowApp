@@ -7,8 +7,38 @@ class App extends React.Component {
     super(props);
     this.state = {
       cows: [],
-      isLoaded: false
+      isLoaded: false,
+      name: '',
+      description: ''
     };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChangeName = this.handleChangeName.bind(this);
+    this.handleChangeDesc = this.handleChangeDesc.bind(this);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    Axios.post('/api/cows', {
+      name: this.state.name,
+      description: this.state.description
+    })
+      .then(response => {
+        console.log(response);
+        console.log(this.state);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  handleChangeName(event) {
+    console.log(event.target.value);
+    this.setState({ name: event.target.value });
+  }
+
+  handleChangeDesc(event) {
+    this.setState({ description: event.target.value });
   }
 
   componentDidMount() {
@@ -29,7 +59,13 @@ class App extends React.Component {
     } else {
       return (
         <div>
-          <CowForm />
+          <CowForm
+            handleSubmit={this.handleSubmit}
+            handleChangeDesc={this.handleChangeDesc}
+            handleChangeName={this.handleChangeName}
+            name={this.state.name}
+            description={this.state.description}
+          />
           <CowList cows={cows} />
         </div>
       );
