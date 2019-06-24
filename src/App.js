@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import CowList from './CowList';
-
+import CowForm from './CowForm';
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -27,7 +27,12 @@ class App extends React.Component {
     if (!isLoaded) {
       return <div>Loading Cows...</div>;
     } else {
-      return <CowList cows={cows} />;
+      return (
+        <div>
+          <CowForm />
+          <CowList cows={cows} />
+        </div>
+      );
     }
   }
 }
