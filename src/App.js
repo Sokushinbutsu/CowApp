@@ -24,8 +24,12 @@ class App extends React.Component {
       description: this.state.description
     })
       .then(response => {
-        console.log(response);
-        console.log(this.state);
+        this.setState({
+          cows: [
+            ...this.state.cows,
+            { name: this.state.name, description: this.state.description }
+          ]
+        });
       })
       .catch(error => {
         console.log(error);
@@ -33,7 +37,6 @@ class App extends React.Component {
   }
 
   handleChangeName(event) {
-    console.log(event.target.value);
     this.setState({ name: event.target.value });
   }
 
