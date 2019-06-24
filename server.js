@@ -16,8 +16,8 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => res.sendFile(HTML_FILE));
 
 app.get('/api/cows', (req, res) => {
-  Cow.getAllCows((err, results) => {
-    if (err) {
+  Cow.getAllCows((error, results) => {
+    if (error) {
       res.status(500).send();
     } else {
       res.send(results);

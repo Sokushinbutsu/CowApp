@@ -23,7 +23,7 @@ class Cow {
         if (error) {
           callback(error);
         } else {
-          callback(results);
+          callback();
         }
       }
     );

@@ -1,4 +1,5 @@
 import React from 'react';
+import Axios from 'axios';
 
 class CowForm extends React.Component {
   constructor(props) {
@@ -20,8 +21,16 @@ class CowForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log('A name was submitted: ' + this.state.name);
-    console.log('a description was submited: ', this.state.description);
+    Axios.post('/api/cows', {
+      name: this.state.name,
+      description: this.state.description
+    })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   render() {
